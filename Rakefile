@@ -2,43 +2,57 @@ require './build/download'
 require 'httparty'
 require 'ruby-progressbar'
 
-TMP_DIR = 'tmp'
+DOWNLOADS = {
+  'pain.001.001.10' => 'https://www.iso20022.org/message/20821/download'
+}
 
+TMP_DIR = 'tmp'
+OUT_DIR = 'out'
+
+desc 'Make tmp dir'
 task :tmp_dir do
   mkdir_p TMP_DIR
+end
+
+desc 'Make out dir'
+task :out_dir do
+  mkdir_p OUT_DIR
 end
 
 def make_progress(total)
   ProgressBar.create(total: total, format: '%a%E (%p%%) |%B| ')
 end
 
-task download: :tmp_dir do
-  urls = all_archives
+desc 'Download xsd for message'
+task :download, [:name] => :tmp_dir do |task, args|
+  name = args[:name]
+  url = DOWNLOADS[name]
 
-  progress = make_progress(urls.length)
-  urls.each do |url|
-    download_to_dir(url, TMP_DIR)
+  raise "No url to download #{name}" unless url
 
-    progress.increment
-  end
+  result = HTTParty.get(url)
+  File.write(TMP_DIR + '/' + name + '.xsd', result.body)
 end
 
-XSD_FILES = Rake::FileList['tmp/*.xsd']
+desc 'Generate ruby file for message'
+task :ruby, [:name] => [:tmp_dir, :out_dir, :download] do |task, args|
+  name = args[:name]
+  file = name + '.xsd'
+  ruby_name = file.gsub('.xsd', '').gsub('.', '')
 
-OUT_DIR = 'out'
-
-task ruby: :tmp_dir do
   Dir.chdir(TMP_DIR) do
-    files = Rake::FileList['*.xsd']
+    system("bundle exec xsd2ruby.rb --xsd #{file} --classdef #{ruby_name}") || exit(-1)
 
-    progress = make_progress(files.length)
-
-    files.each do |file|
-        ruby_name = file.split('/').last.gsub('.xsd', '').gsub('.', '').capitalize
-        system("bundle exec xsd2ruby.rb --xsd #{file} --classdef #{ruby_name} --quiet") || exit(-1)
-
-        progress.increment
-    end
+    cp ruby_name + '.rb', '../' + OUT_DIR
   end
 end
 
+desc 'Delete generated output'
+task :clean do
+  rm_rf OUT_DIR
+end
+
+desc 'Delete generated output and intermediate files'
+task :clobber, :clean do
+  rm_rf TMP_DIR
+end
