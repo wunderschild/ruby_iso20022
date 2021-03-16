@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
+
 require 'httparty'
-require 'ruby-progressbar'
 
 DOWNLOADS = {
   'pain.001.001.10' => 'https://www.iso20022.org/message/20821/download'
@@ -16,10 +20,6 @@ end
 desc 'Make out dir'
 task :out_dir do
   mkdir_p OUT_DIR
-end
-
-def make_progress(total)
-  ProgressBar.create(total: total, format: '%a%E (%p%%) |%B| ')
 end
 
 desc 'Download xsd for message'
@@ -49,3 +49,11 @@ desc 'Delete generated output and intermediate files'
 task :clobber, :clean do
   rm_rf TMP_DIR
 end
+
+RSpec::Core::RakeTask.new(:spec)
+
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new
+
+task default: %i[spec rubocop]

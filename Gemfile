@@ -2,7 +2,8 @@
 
 source "https://rubygems.org"
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+# Specify your gem's dependencies in ruby_iso20022.gemspec
+gemspec
 
 group :development do
   gem 'httparty', '~> 0.18.1'
@@ -10,4 +11,7 @@ group :development do
   gem 'ruby-progressbar', '~> 1.11'
   gem 'logger-application', '~> 0.0.2'
   gem 'jaxb2ruby', git: 'https://github.com/sshaw/jaxb2ruby', branch: 'modern-java-updates'
+
+  gem "rspec", "~> 3.0"
+  gem "rubocop", "~> 1.7"
 end
