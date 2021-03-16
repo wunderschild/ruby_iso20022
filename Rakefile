@@ -32,13 +32,37 @@ desc 'Generate ruby file for message'
 task :ruby, [:name] => [:tmp_dir, :download] do |task, args|
   name = args[:name]
 
-  system("bundle exec jaxb2ruby -t happymapper -o #{CODE_DIR} -n namespaces.yml #{TMP_DIR}/#{name}.xsd") || exit(-1)
+  system(
+<<~SH.gsub("\n", " ")
+  bundle exec jaxb2ruby
+    -t happymapper
+    -o #{CODE_DIR}
+    -n namespaces.yml
+    -c classes.yml
+    #{TMP_DIR}/#{name}.xsd
+SH
+  ) || exit(1)
+end
+
+desc 'Postprocess ruby code'
+task :post_proc, [:name] do |task, args|
+  name = args[:name]
+  module_name = name.split('.')[0...-1].join
+
+  sources = Rake::FileList[CODE_DIR + '/ruby_iso20022/messages/' + module_name + '/*.rb']
+
+  sources.each do |s|
+    # Remove org/w3c/dom/element requires
+    system('sed', '-i', '/require \"org\/w3c\/dom\/element\"/d', s) || exit(1)
+    # Remove Org::W3c::Dom::Element type for happymapper
+    system('sed', '-i', '/, Org::W3c::Dom::Element/ s///', s) || exit(1)
+  end
 end
 
 desc 'Generate ruby for all known files'
 task :ruby_all do
   DOWNLOADS.keys.each do |name|
-    Rake::Task[:ruby].invoke(name)
+    Rake::Task[:post_proc].invoke(name)
   end
 end
 

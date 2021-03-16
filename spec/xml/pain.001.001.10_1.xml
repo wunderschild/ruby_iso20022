@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pain.001.001.10" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:pain.001.001.10.001.001.10.xsd">
+   <CstmrCdtTrfInitn>
+      24
+      <GrpHdr>
+         <MsgId>87fbf20111125/1</MsgId>
+         <CreDtTm>2011-11-25T11:16:58.696</CreDtTm>
+         <NbOfTxs>3</NbOfTxs>
+         <CtrlSum>2500</CtrlSum>
+         <InitgPty>
+            <Nm>AS XML</Nm>
+         </InitgPty>
+      </GrpHdr>
+      <PmtInf>
+         <PmtInfId>PMTID001</PmtInfId>
+         <PmtMtd>TRF</PmtMtd>
+         <BtchBookg>true</BtchBookg>
+         <NbOfTxs>3</NbOfTxs>
+         <PmtTpInf>
+            <SvcLvl>
+               <Cd>SEPA</Cd>
+            </SvcLvl>
+         </PmtTpInf>
+         <ReqdExctnDt>2011-11-25</ReqdExctnDt>
+         <Dbtr>
+            <Nm>AS XML</Nm>
+            <PstlAdr>
+               <Ctry>EE</Ctry>
+               <AdrLine>Metsa 2, Tallinn</AdrLine>
+            </PstlAdr>
+         </Dbtr>
+         <DbtrAcct>
+            <Id>
+               <IBAN>EE481012345678901234</IBAN>
+            </Id>
+            <Ccy>EUR</Ccy>
+         </DbtrAcct>
+         <DbtrAgt>
+            <FinInstnId>
+               <BIC>EEUHEE2X</BIC>
+            </FinInstnId>
+         </DbtrAgt>
+         <ChrgBr>SLEV</ChrgBr>
+         <CdtTrfTxInf>
+            <PmtId>
+               <EndToEndId>123</EndToEndId>
+            </PmtId>
+            25
+            <Amt>
+               <InstdAmt Ccy="EUR">1000</InstdAmt>
+            </Amt>
+            <Cdtr>
+               <Nm>AS ISO</Nm>
+               <PstlAdr>
+                  <Ctry>EE</Ctry>
+                  <AdrLine>Leevikese 5,Tallinn</AdrLine>
+               </PstlAdr>
+            </Cdtr>
+            <CdtrAcct>
+               <Id>
+                  <IBAN>EE212200223456789102</IBAN>
+               </Id>
+            </CdtrAcct>
+            <RmtInf>
+               <Strd>
+                  <CdtrRefInf>
+                     <Tp>
+                        <CdOrPrtry>
+                           <Cd>SCOR</Cd>
+                        </CdOrPrtry>
+                     </Tp>
+                     <Ref>88069400003</Ref>
+                  </CdtrRefInf>
+               </Strd>
+            </RmtInf>
+         </CdtTrfTxInf>
+         <CdtTrfTxInf>
+            <PmtId>
+               <EndToEndId>124</EndToEndId>
+            </PmtId>
+            <Amt>
+               <InstdAmt Ccy="EUR">850</InstdAmt>
+            </Amt>
+            <Cdtr>
+               <Nm>TUISK TAAVI</Nm>
+               <PstlAdr>
+                  <Ctry>EE</Ctry>
+                  <AdrLine>Kullerkupu 7,Tallinn</AdrLine>
+               </PstlAdr>
+            </Cdtr>
+            <CdtrAcct>
+               26
+               <Id>
+                  <IBAN>EE051010012345678901</IBAN>
+               </Id>
+            </CdtrAcct>
+            <RmtInf>
+               <Ustrd>PALK</Ustrd>
+            </RmtInf>
+         </CdtTrfTxInf>
+         <CdtTrfTxInf>
+            <PmtId>
+               <EndToEndId>125</EndToEndId>
+            </PmtId>
+            <Amt>
+               <InstdAmt Ccy="EUR">650</InstdAmt>
+            </Amt>
+            <CdtrAgt>
+               <FinInstnId>
+                  <BIC>ESSEFIHH</BIC>
+               </FinInstnId>
+            </CdtrAgt>
+            <Cdtr>
+               <Nm>PEKKONEN JUHANI</Nm>
+               <PstlAdr>
+                  <Ctry>FI</Ctry>
+                  <AdrLine>TUUSULANTAIVAL 1, HELSINKI</AdrLine>
+               </PstlAdr>
+            </Cdtr>
+            <CdtrAcct>
+               <Id>
+                  <IBAN>FI3733012345678910</IBAN>
+               </Id>
+            </CdtrAcct>
+            <RmtInf>
+               <Ustrd>PALKKA</Ustrd>
+            </RmtInf>
+         </CdtTrfTxInf>
+      </PmtInf>
+   </CstmrCdtTrfInitn>
+</Document>

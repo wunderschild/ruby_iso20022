@@ -3,7 +3,6 @@
 #
 
 require "happymapper"
-require "org/w3c/dom/element"
 
 module RubyIso20022 module Messages module Pain001001
 
@@ -17,7 +16,7 @@ class SupplementaryDataEnvelope1
   tag "SupplementaryDataEnvelope1"
 
     
-    has_one :any, Org::W3c::Dom::Element, :tag => "any", :namespace => nil
+    has_one :any, :tag => "any", :namespace => nil
 
 
   

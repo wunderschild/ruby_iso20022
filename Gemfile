@@ -10,8 +10,11 @@ group :development do
   gem 'rake', '~> 13.0', '>= 13.0.3'
   gem 'ruby-progressbar', '~> 1.11'
   gem 'logger-application', '~> 0.0.2'
-  gem 'jaxb2ruby', git: 'https://github.com/sshaw/jaxb2ruby', branch: 'modern-java-updates'
 
   gem "rspec", "~> 3.0"
   gem "rubocop", "~> 1.7"
+end
+
+group :build do
+#  gem 'jaxb2ruby', git: 'https://github.com/sshaw/jaxb2ruby', branch: 'modern-java-updates'
 end
