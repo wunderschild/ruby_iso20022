@@ -9,17 +9,12 @@ DOWNLOADS = {
   'pain.001.001.10' => 'https://www.iso20022.org/message/20821/download'
 }
 
+CODE_DIR = 'lib'
 TMP_DIR = 'tmp'
-OUT_DIR = 'out'
 
 desc 'Make tmp dir'
 task :tmp_dir do
   mkdir_p TMP_DIR
-end
-
-desc 'Make out dir'
-task :out_dir do
-  mkdir_p OUT_DIR
 end
 
 desc 'Download xsd for message'
@@ -34,19 +29,26 @@ task :download, [:name] => :tmp_dir do |task, args|
 end
 
 desc 'Generate ruby file for message'
-task :ruby, [:name] => [:tmp_dir, :out_dir, :download] do |task, args|
+task :ruby, [:name] => [:tmp_dir, :download] do |task, args|
   name = args[:name]
 
-  system("bundle exec jaxb2ruby -t happymapper -o #{OUT_DIR} #{TMP_DIR}/#{name}.xsd") || exit(-1)
+  system("bundle exec jaxb2ruby -t happymapper -o #{CODE_DIR} -n namespaces.yml #{TMP_DIR}/#{name}.xsd") || exit(-1)
 end
 
-desc 'Delete generated output'
+desc 'Generate ruby for all known files'
+task :ruby_all do
+  DOWNLOADS.keys.each do |name|
+    Rake::Task[:ruby].invoke(name)
+  end
+end
+
+desc 'Delete generated code'
 task :clean do
-  rm_rf OUT_DIR
+  rm_rf CODE_DIR + 'lib/messages'
 end
 
-desc 'Delete generated output and intermediate files'
-task :clobber, :clean do
+desc 'Delete intermediate files and generated code'
+task :clobber, [:clean] do
   rm_rf TMP_DIR
 end
 
