@@ -1,4 +1,3 @@
-require './build/download'
 require 'httparty'
 require 'ruby-progressbar'
 
@@ -37,14 +36,8 @@ end
 desc 'Generate ruby file for message'
 task :ruby, [:name] => [:tmp_dir, :out_dir, :download] do |task, args|
   name = args[:name]
-  file = name + '.xsd'
-  ruby_name = file.gsub('.xsd', '').gsub('.', '')
 
-  Dir.chdir(TMP_DIR) do
-    system("bundle exec xsd2ruby.rb --xsd #{file} --classdef #{ruby_name}") || exit(-1)
-
-    cp ruby_name + '.rb', '../' + OUT_DIR
-  end
+  system("bundle exec jaxb2ruby -t happymapper -o #{OUT_DIR} #{TMP_DIR}/#{name}.xsd") || exit(-1)
 end
 
 desc 'Delete generated output'

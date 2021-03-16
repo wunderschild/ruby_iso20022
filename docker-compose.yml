@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  app:
+    image: jruby:9-jdk8
+    command: bash
+    working_dir: /app
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
