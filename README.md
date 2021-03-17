@@ -1,28 +1,45 @@
 # RubyIso20022
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ruby_iso20022`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem provides convenience ruby classes to work with ISO 20022 messages.
 
-TODO: Delete this and the text above, and describe your gem
+The provided classes are [happymapper](https://github.com/mvz/happymapper) classes
+with types defined for all elements. This makes consuming ISO 20022 messages
+easy.
+
+Additionally, messages can be serialized to XML which allows constructing and sending messages.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ruby_iso20022'
+gem 'ruby_iso20022', git: 'https://github.com/wunderschild/ruby_iso20022'
 ```
 
 And then execute:
 
     $ bundle install
 
-Or install it yourself as:
-
-    $ gem install ruby_iso20022
-
 ## Usage
 
-TODO: Write usage instructions here
+This gem allows to both consume and construct ISO 20022 messages.
+
+Suppose you have the XML messages string in variable `xml`:
+```
+xml = '<?xml version="1.0" encoding="UTF-8"?><Document xmlns="urn:iso"...'
+```
+
+And you know that xml contains a single pain.001.001 message. Then you can easily consume
+this message:
+```
+document = RubyIso20022::Pain001001::Document.parse(xml, single: true)
+```
+
+When we have the parsed `document`, we can easily extract any field of the message.
+For example, we can get the message id like this:
+```
+document.cstmr_cdt_trf_initn.grp_hdr.msg_id
+```
 
 ## Development
 
@@ -32,7 +49,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ruby_iso20022.
+Bug reports and pull requests are welcome on GitHub at https://github.com/wunderschild/ruby_iso20022.
 
 ## License
 

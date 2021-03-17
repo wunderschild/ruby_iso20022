@@ -7,12 +7,17 @@ gemspec
 
 group :development do
   gem 'httparty', '~> 0.18.1'
+
   gem 'rake', '~> 13.0', '>= 13.0.3'
   gem 'ruby-progressbar', '~> 1.11'
   gem 'logger-application', '~> 0.0.2'
 
   gem "rspec", "~> 3.0"
   gem "rubocop", "~> 1.7"
+end
+
+group :test do
+  gem 'nokogiri', '~> 1.5'
 end
 
 group :build do
