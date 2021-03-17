@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'nokogiri'
-require 'ruby_iso20022/messages/pain001001/document.rb'
+require 'ruby_iso20022'
 
 RSpec.describe RubyIso20022::Messages::Pain001001::Document do
   let(:xml) { File.read('spec/xml/pain.001.001.10_1.xml') }

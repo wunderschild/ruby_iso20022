@@ -22,11 +22,14 @@ And then execute:
 
 ## Usage
 
-This gem allows to both consume and construct ISO 20022 messages.
-
 Suppose you have the XML messages string in variable `xml`:
 ```
 xml = '<?xml version="1.0" encoding="UTF-8"?><Document xmlns="urn:iso"...'
+```
+
+Load the gem:
+```
+require 'ruby_iso20022'
 ```
 
 And you know that xml contains a single pain.001.001 message. Then you can easily consume
