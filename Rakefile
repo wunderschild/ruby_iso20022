@@ -45,7 +45,7 @@ SH
 end
 
 desc 'Postprocess ruby code'
-task :post_proc, [:name] do |task, args|
+task :post_proc, [:name] => [:ruby] do |task, args|
   name = args[:name]
   module_name = name.split('.')[0...-1].join
 
