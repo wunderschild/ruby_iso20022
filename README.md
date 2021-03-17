@@ -23,24 +23,24 @@ And then execute:
 ## Usage
 
 Suppose you have the XML messages string in variable `xml`:
-```
+```ruby
 xml = '<?xml version="1.0" encoding="UTF-8"?><Document xmlns="urn:iso"...'
 ```
 
 Load the gem:
-```
+```ruby
 require 'ruby_iso20022'
 ```
 
 And you know that xml contains a single pain.001.001 message. Then you can easily consume
 this message:
-```
+```ruby
 document = RubyIso20022::Pain001001::Document.parse(xml, single: true)
 ```
 
 When we have the parsed `document`, we can easily extract any field of the message.
 For example, we can get the message id like this:
-```
+```ruby
 document.cstmr_cdt_trf_initn.grp_hdr.msg_id
 ```
 
